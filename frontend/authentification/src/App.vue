@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    lol
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <MyJumbotron/> -->
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import MyJumbotron from './components/MyJumbotron.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // MyJumbotron
   }
 }
 </script>
