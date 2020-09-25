@@ -6,17 +6,26 @@ Vue.use(Vuex)
 // Ne pas oublier d'importer vue.use et vuex ici pour pouvoir utiliser le store 
 
 export default new Vuex.Store({
-state: {
-    // todos: []
-},
-mutations: {
-    // ADD(state, whatToAdd){
-    //     state.todos = whatToAdd
+    state: {
+        token: null
+
     },
-actions : {
-        // ADD (context, whatToAdd) {
-        //   context.commit('ADD', whatToAdd)
-}
+    mutations: {
+        TOKEN_MUTATION(state, thetoken) {
+            state.token = thetoken //token c'est la valeur initié dans le state
+        },
+        TOLOGOUT(state) {
+            state.token = null
+        }
+    },
+    actions: {
+        SENDTOKEN(context, thetoken) {
+            context.commit('TOKEN_MUTATION', thetoken)
+        },
+        DELETE_TOKEN(context) {
+            context.commit('TOLOGOUT')
+        }
+    }
 
 
 })

@@ -47,7 +47,7 @@ export default {
         email: "",
         password: "",
       },
-      message : "" //ajout pour le message  d'erreur
+      message : "" //ajout pour le message d'erreur si le user n'est pas connu dans notre db
     };
   },
 
@@ -55,8 +55,9 @@ methods : {
   connectIt () {
       axios.post("http://localhost:8000/login", this.form)
       .then(response => { //then pour succesful response
-          this.$router.push("/dashboard") //$router pour me diriger vers une route
-          console.log(response);
+          this.$router.push("/dashboard") //$router pour me diriger vers une route, et je veux la route dashboard
+          console.log(response.data.token);
+          this.$store.dispatch("SENDTOKEN", response.data.token) // deux parametres : le nom de l'action, la valeur
       })
       .catch(err => {
           console.log(err.response.data);

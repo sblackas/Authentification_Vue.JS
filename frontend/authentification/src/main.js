@@ -13,25 +13,39 @@ Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 
 const routes = [
-  {path: '/dashboard', component: Dashboard,  meta: {
-    requiresAuth: true
-}},
+  {path: '/dashboard', name: 'dashboard', component: Dashboard,  meta: {requiresAuth: true}},
   {path: '/', component: MyJumbotron },
+]
+  const router = new VueRouter ({
+    mode: "history",
+    routes
+  })
 
-  ]
 
-  // router.beforeEach((to, from, next) => {
-  //   if(to.matched.some(record => record.meta.requiresAuth)) {
-  //       if (localStorage.getItem('jwt') == null) {
-  //           next({
-  //               path: '/login',
-  //               params: { nextUrl: to.fullPath }
-  //           })
 
-const router = new VueRouter ({
-  mode: "history",
-  routes
-})
+  router.beforeEach((to, from, next) => {
+    // let x = to.matched.some(rout => rout.meta.requiresAuth)
+    if(to.matched.some(rout => rout.meta.requiresAuth === true)) {
+      if (/*x == true && */store.state.token) {
+        next()
+    
+    } else if (/*x == true && */store.state.token == null){
+
+          next({
+            path: "/",
+            params: { nextUrl: to.fullPath},
+          })
+        }
+        // else{
+        // next()
+        // }
+       }
+      next();
+  })
+
+
+
+
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -47,3 +61,5 @@ new Vue({
   render: h => h(App),
   router
 }).$mount('#app')
+
+export default router
